@@ -1,6 +1,7 @@
 import he from "he";
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Badge, Button, Card, Col, Row } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
 import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
@@ -11,6 +12,7 @@ import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offli
 const PracticeSound = lazy(() => import("./PracticeSound"));
 
 const SoundList = () => {
+    const { t } = useTranslation();
     const [selectedSound, setSelectedSound] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
@@ -76,6 +78,19 @@ const SoundList = () => {
         }
     };
 
+    const getReviewText = (review) => {
+        switch (review) {
+            case "good":
+                return t("sound_page.reviewGood");
+            case "neutral":
+                return t("sound_page.reviewNeutral");
+            case "bad":
+                return t("sound_page.reviewBad");
+            default:
+                return "";
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -118,13 +133,13 @@ const SoundList = () => {
     }, []);
 
     useEffect(() => {
-        document.title = `Sounds | iSpeakerReact ${__APP_VERSION__}`;
-    }, []);
+        document.title = `${t("navigation.sounds")} | iSpeakerReact ${__APP_VERSION__}`;
+    }, [t]);
 
     return (
         <>
             <TopNavBar />
-            <h1 className="fw-semibold">Sounds</h1>
+            <h1 className="fw-semibold">{t("navigation.sounds")}</h1>
             {selectedSound ? (
                 <Suspense fallback={isElectron() ? null : <LoadingOverlay />}>
                     <PracticeSound
@@ -143,7 +158,7 @@ const SoundList = () => {
                             <LoadingOverlay />
                         ) : (
                             <>
-                                <h3 className="mb-4">Consonants</h3>
+                                <h3 className="mb-4">{t("sound_page.consonants")}</h3>
                                 <Row className="d-flex justify-content-center">
                                     {soundsData.consonants
                                         .filter(
@@ -158,7 +173,7 @@ const SoundList = () => {
                                                         <Badge
                                                             bg={getBadgeColor(sound, index)}
                                                             className="position-absolute top-0 end-0 rounded-start-0 rounded-bottom-0">
-                                                            {reviews[`${getReviewKey(sound, index)}`] || ""}
+                                                            {getReviewText(reviews[`${getReviewKey(sound, index)}`])}
                                                         </Badge>
                                                         <Card.Title>{he.decode(sound.phoneme)}</Card.Title>
                                                         <Card.Text>{sound.example_word}</Card.Text>
@@ -168,7 +183,7 @@ const SoundList = () => {
                                                                 handlePracticeClick(sound, selectedAccent, index)
                                                             }
                                                             aria-label={`Open the sound ${he.decode(sound.phoneme)}`}>
-                                                            Practice
+                                                            {t("sound_page.practiceBtn")}
                                                         </Button>
                                                     </Card.Body>
                                                 </Card>
@@ -176,7 +191,7 @@ const SoundList = () => {
                                         ))}
                                 </Row>
                                 <hr />
-                                <h3 className="my-4">Vowels and Diphthongs</h3>
+                                <h3 className="my-4">{t("sound_page.vowels_dipthongs")}</h3>
                                 <Row className="d-flex justify-content-center">
                                     {soundsData.vowels_n_diphthongs
                                         .filter(
@@ -191,7 +206,7 @@ const SoundList = () => {
                                                         <Badge
                                                             bg={getBadgeColor(sound, index)}
                                                             className="position-absolute top-0 end-0 rounded-start-0 rounded-bottom-0">
-                                                            {reviews[`${getReviewKey(sound, index)}`] || ""}
+                                                            {getReviewText(reviews[`${getReviewKey(sound, index)}`])}
                                                         </Badge>
                                                         <Card.Title>{he.decode(sound.phoneme)}</Card.Title>
                                                         <Card.Text>{sound.example_word}</Card.Text>
@@ -200,7 +215,7 @@ const SoundList = () => {
                                                             onClick={() =>
                                                                 handlePracticeClick(sound, selectedAccent, index)
                                                             }>
-                                                            Practice
+                                                            {t("sound_page.practiceBtn")}
                                                         </Button>
                                                     </Card.Body>
                                                 </Card>

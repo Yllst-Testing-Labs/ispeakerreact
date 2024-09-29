@@ -5,6 +5,7 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, CheckCircleFill, XCircle, XCircleFill } from "react-bootstrap-icons";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import useCountdownTimer from "../../utils/useCountdownTimer";
+import { useTranslation } from "react-i18next";
 
 const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
@@ -15,6 +16,8 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const [submitted, setSubmitted] = useState(false);
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (timer > 0) {
@@ -74,8 +77,14 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         <>
             <Card.Header className="fw-semibold">
                 <div className="d-flex">
-                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
-                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                    <div className="me-auto">
+                        {t("exercise_page.questionNo")} #{currentQuizIndex + 1}
+                    </div>
+                    {timer > 0 && (
+                        <div className="ms-auto">
+                            {t("exercise_page.timer")} {formatTime()}
+                        </div>
+                    )}
                 </div>
             </Card.Header>
             <Card.Body>
@@ -118,15 +127,15 @@ const OddOneOut = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                         variant="success"
                         onClick={handleSubmit}
                         disabled={selectedOption === null || buttonsDisabled}>
-                        <Check2Circle /> Check
+                        <Check2Circle /> {t("exercise_page.buttons.checkBtn")}
                     </Button>
                     {currentQuizIndex < shuffledQuiz.length - 1 && (
                         <Button variant="secondary" className="ms-2" onClick={handleNextQuiz}>
-                            <ArrowRightCircle /> Next
+                            <ArrowRightCircle /> {t("exercise_page.buttons.nextBtn")}
                         </Button>
                     )}
                     <Button variant="danger" className="ms-2" onClick={handleQuit}>
-                        <XCircle /> Quit
+                        <XCircle /> {t("exercise_page.buttons.quitBtn")}
                     </Button>
                 </div>
             </Card.Body>

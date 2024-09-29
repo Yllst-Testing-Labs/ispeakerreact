@@ -1,4 +1,6 @@
+import { useTranslation } from "react-i18next";
 import { playRecording } from "../../utils/databaseOperations";
+import { isElectron } from "../../utils/isElectron";
 
 export function usePlaybackFunction(
     getRecordingKey,
@@ -14,6 +16,7 @@ export function usePlaybackFunction(
     setToastMessage,
     setShowToast
 ) {
+    const { t } = useTranslation();
     const handlePlayRecording = async (cardIndex) => {
         const key = getRecordingKey(cardIndex);
 
@@ -78,8 +81,8 @@ export function usePlaybackFunction(
             },
             (error) => {
                 console.error("Error during playback:", error);
-                window.electron.log("error", `Error during playback: ${error}`);
-                setToastMessage("Error during playback: " + error.message);
+                isElectron() && window.electron.log("error", `Error during playback: ${error}`);
+                setToastMessage(`${t("toast.playbackError")} ${error.message}`);
                 setShowToast(true);
                 setIsRecordingPlaying(false);
                 setActivePlaybackCard(null);
@@ -111,8 +114,8 @@ export function usePlaybackFunction(
             },
             (error) => {
                 console.error("Error during playback:", error);
-                window.electron.log("error", `Error during playback: ${error}`);
-                setToastMessage("Error during playback: " + error.message);
+                isElectron() && window.electron.log("error", `Error during playback: ${error}`);
+                setToastMessage(`${t("toast.playbackError")} ${error.message}`);
                 setShowToast(true);
                 setIsRecordingPlaying(false);
                 setActivePlaybackCard(null);

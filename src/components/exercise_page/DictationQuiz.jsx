@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Alert, Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
 import useCountdownTimer from "../../utils/useCountdownTimer";
+import { useTranslation } from "react-i18next";
 
 const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -21,6 +22,8 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
 
     const audioRef = useRef(null);
+
+    const { t } = useTranslation();
 
     const filterAndShuffleQuiz = (quiz) => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
@@ -72,7 +75,7 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                 ""
             ) : (
                 <>
-                    Correct answer: <span className="fw-bold fst-italic">{correctAnswer}</span>
+                    {t("exercise_page.result.correctAnswer")} <span className="fw-bold fst-italic">{correctAnswer}</span>
                 </>
             )
         );
@@ -196,8 +199,8 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
         <>
             <Card.Header className="fw-semibold">
                 <div className="d-flex">
-                    <div className="me-auto">Question #{currentQuestionIndex + 1}</div>
-                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                    <div className="me-auto">{t("exercise_page.questionNo")} #{currentQuestionIndex + 1}</div>
+                    {timer > 0 && <div className="ms-auto">{t("exercise_page.timer")} {formatTime()}</div>}
                 </div>
             </Card.Header>
             <Card.Body>
@@ -233,15 +236,15 @@ const DictationQuiz = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
                         className="mt-3"
                         disabled={isSubmitButtonEnabled}
                         onClick={handleSubmit}>
-                        <Check2Circle /> Check
+                        <Check2Circle /> {t("exercise_page.buttons.checkBtn")}
                     </Button>
                     {currentQuestionIndex < quiz.length - 1 && (
                         <Button variant="secondary" className="mt-3 ms-2" onClick={handleNext}>
-                            <ArrowRightCircle /> Next
+                            <ArrowRightCircle /> {t("exercise_page.buttons.nextBtn")}
                         </Button>
                     )}
                     <Button variant="danger" className="mt-3 ms-2" onClick={handleQuit}>
-                        <XCircle /> Quit
+                        <XCircle /> {t("exercise_page.buttons.quitBtn")}
                     </Button>
                 </div>
             </Card.Body>

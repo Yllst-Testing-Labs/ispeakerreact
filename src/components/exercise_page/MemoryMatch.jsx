@@ -1,8 +1,9 @@
 import he from "he";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { CheckCircleFill, XCircleFill, XCircle } from "react-bootstrap-icons";
+import { CheckCircleFill, XCircle, XCircleFill } from "react-bootstrap-icons";
 import { Flipped, Flipper } from "react-flip-toolkit";
+import { useTranslation } from "react-i18next";
 import "../../styles/memory-card.css";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import useCountdownTimer from "../../utils/useCountdownTimer";
@@ -18,6 +19,8 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
 
     // Use the countdown timer
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+
+    const { t } = useTranslation();
 
     // Function to randomly pick 8 pairs from the entire quiz data
     const prepareQuiz = useCallback((quizData) => {
@@ -144,8 +147,12 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
         <>
             <Card.Header className="fw-semibold">
                 <div className="d-flex">
-                    <div className="me-auto">Memory match</div>
-                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                    <div className="me-auto">{t("exercise_page.memoryMatchHeading")}</div>
+                    {timer > 0 && (
+                        <div className="ms-auto">
+                            {t("exercise_page.timer")} {formatTime()}
+                        </div>
+                    )}
                 </div>
             </Card.Header>
             <Card.Body>
@@ -185,7 +192,7 @@ const MemoryMatch = ({ quiz, timer, onQuit, setTimeIsUp, onMatchFinished }) => {
                 </Flipper>
                 <div className="d-flex justify-content-end mt-3">
                     <Button variant="danger" onClick={handleQuit}>
-                        <XCircle /> Quit
+                        <XCircle /> {t("exercise_page.buttons.quitBtn")}
                     </Button>
                 </div>
             </Card.Body>

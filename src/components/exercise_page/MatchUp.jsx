@@ -18,9 +18,10 @@ import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import { ShuffleArray } from "../../utils/ShuffleArray";
-import SortableWord from "./SortableWord";
 import useCountdownTimer from "../../utils/useCountdownTimer";
+import SortableWord from "./SortableWord";
 
 const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
@@ -36,6 +37,8 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
 
     const audioRef = useRef(null);
+
+    const { t } = useTranslation();
 
     const filterAndShuffleQuiz = useCallback((quiz) => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
@@ -235,8 +238,14 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
         <>
             <Card.Header className="fw-semibold">
                 <div className="d-flex">
-                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
-                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                    <div className="me-auto">
+                        {t("exercise_page.questionNo")} #{currentQuizIndex + 1}
+                    </div>
+                    {timer > 0 && (
+                        <div className="ms-auto">
+                            {t("exercise_page.timer")} {formatTime()}
+                        </div>
+                    )}
                 </div>
             </Card.Header>
             <Card.Body>
@@ -300,15 +309,15 @@ const MatchUp = ({ quiz, timer, onAnswer, onQuit, setTimeIsUp }) => {
 
                 <div className="d-flex justify-content-end mt-3">
                     <Button variant="success" onClick={handleSubmit} disabled={buttonsDisabled}>
-                        <Check2Circle /> Check
+                        <Check2Circle /> {t("exercise_page.buttons.checkBtn")}
                     </Button>
                     {currentQuizIndex < shuffledQuiz.length - 1 && (
                         <Button variant="secondary" className="ms-2" onClick={handleNextQuiz}>
-                            <ArrowRightCircle /> Next
+                            <ArrowRightCircle /> {t("exercise_page.buttons.nextBtn")}
                         </Button>
                     )}
                     <Button variant="danger" className="ms-2" onClick={handleQuit}>
-                        <XCircle /> Quit
+                        <XCircle /> {t("exercise_page.buttons.quitBtn")}
                     </Button>
                 </div>
             </Card.Body>

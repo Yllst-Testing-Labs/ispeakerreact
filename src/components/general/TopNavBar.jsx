@@ -3,10 +3,13 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { CardChecklist, ChatDots, ClipboardCheck, House, Mic, Gear } from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../utils/ThemeProvider";
+import { useTranslation } from "react-i18next";
 
 const TopNavBar = () => {
+    const { t } = useTranslation();
     const { theme } = useContext(ThemeContext);
     const [currentTheme, setCurrentTheme] = useState(theme);
+
     useEffect(() => {
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -54,27 +57,27 @@ const TopNavBar = () => {
                         <Nav className="me-auto" variant="underline">
                             <NavLink to="/" className="nav-link">
                                 <House className="me-2" />
-                                Home
+                                {t("navigation.home")}
                             </NavLink>
                             <NavLink to="/sounds" className="nav-link">
                                 <Mic className="me-2" />
-                                Sounds
+                                {t("navigation.sounds")}
                             </NavLink>
                             <NavLink to="/exercises" className="nav-link">
                                 <CardChecklist className="me-2" />
-                                Exercises
+                                {t("navigation.exercises")}
                             </NavLink>
                             <NavLink to="/conversations" className="nav-link">
                                 <ChatDots className="me-2" />
-                                Conversations
+                                {t("navigation.conversations")}
                             </NavLink>
                             <NavLink to="/exams" className="nav-link">
                                 <ClipboardCheck className="me-2" />
-                                Exams
+                                {t("navigation.exams")}
                             </NavLink>
                             <NavLink to="/settings" className="nav-link">
                                 <Gear className="me-2" />
-                                Settings
+                                {t("navigation.settings")}
                             </NavLink>
                         </Nav>
                     </Navbar.Collapse>

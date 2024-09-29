@@ -1,0 +1,281 @@
+{
+    "navigation": {
+        "home": "Home",
+        "sounds": "Sounds",
+        "exercises": "Exercises",
+        "conversations": "Conversations",
+        "exams": "Exams",
+        "settings": "Settings"
+    },
+    "homepage": {
+        "soundDescription": "Watch videos and practice pronouncing sounds.",
+        "exerciseDescription": "Practice listening to sounds and sentences in various exercise types.",
+        "conversationDescription": "Improve your conversation skills for different situations.",
+        "examDescription": "Prepare yourself for different types of speaking exams.",
+        "settingDescription": "Exercise timer, appearance, and more.",
+        "openBtn": "Open"
+    },
+    "accent": {
+        "accentSettings": "Accent",
+        "accentAmerican": "American English",
+        "accentBritish": "British English"
+    },
+    "alert": {
+        "alertOnlineVideo": "Want to watch the video offline? Head to the “Settings” page to download it."
+    },
+    "toast": {
+        "recordingExceeded": "Recording stopped because it exceeded the duration limit of 20 seconds.",
+        "recordingSuccess": "Recording saved.",
+        "recordingFailed": "Recording failed. Reason(s):",
+        "playbackError": "Error during playback. Reason(s):"
+    },
+    "sound_page": {
+        "consonants": "Consonants",
+        "vowels_dipthongs": "Vowels and diphthongs",
+        "practiceBtn": "Practice",
+        "reviewGood": "good",
+        "reviewNeutral": "neutral",
+        "reviewBad": "bad",
+        "soundTop": "Sound",
+        "exampleWords": "Words that include this sound",
+        "backBtn": "Back to sound list",
+        "closeBtn": "Close",
+        "watchCard": "Watch",
+        "practiceCard": "Practice",
+        "reviewCard": "Review",
+        "clipModalTitle": "Pronunciation clip",
+        "recordInstructions": "Watch pronunciation clips, and use the <0>{{icon}}</0> button to record your own sound.",
+        "reviewInstructions": "How do you pronounce the sound {{phoneme}}?"
+    },
+    "exercise_page": {
+        "exerciseSubheading": "Select an exercise to get started.",
+        "dictationHeading": "Dictation",
+        "matchUpHeading": "Match-up",
+        "reorderingHeading": "Reordering",
+        "soundSpellingHeading": "Sounds and spelling",
+        "sortingHeading": "Sorting",
+        "oddOneOutHeading": "Odd one out",
+        "snapHeading": "Snap!",
+        "memoryMatchHeading": "Memory match",
+        "randomExercise": "Random",
+        "wordExercise": "Words",
+        "missingWordExercise": "Missing words",
+        "sentenceExercise": "Sentences",
+        "similarSoundExercise": "Similar sounds",
+        "readingPhoneticsExercise": "Reading phonetics",
+        "comprehensionExercise": "Comprehension",
+        "wordStressExercise": "Word stress",
+        "rhymingWordExercise": "Rhyming words",
+        "syllablesExercise": "Syllables",
+        "homophonesExercise": "Homophones",
+        "questionNo": "Question",
+        "timer": "Time:",
+        "dropLayer": "Drop here...",
+        "dragThisItem": "Drag this",
+        "snapCorrect": "Correct",
+        "snapIncorrect": "Incorrect",
+        "buttons": {
+            "checkBtn": "Check",
+            "nextBtn": "Next",
+            "quitBtn": "Quit",
+            "restartBtn": "Restart quiz",
+            "backBtn": "Back to exercise list",
+            "collapseBtn": "Collapse instructions",
+            "expandBtn": "Expand instructions"
+        },
+        "exerciseInfo": {
+            "dictationWord": "Test your listening and spelling with word dictations",
+            "dictationMissingWord": "Listen to full sentences and write the missing words",
+            "dictationSentence": "Test your listening and spelling with sentence dictations",
+            "dictationRandom": "A mixture of word and sentence dictations",
+            "matchUpSimilarSound": "Match the written words with the words you hear",
+            "matchUpReadingPhonetics": "Test your knowledge of phonetics by matching the phonetic transcriptions to the words",
+            "matchUpComprehension": "Match the words to the sentences they appear in",
+            "matchUpRandom": "A mixture of matching exercises",
+            "reorderingWord": "Reorder the letters to make the words you hear",
+            "reorderingSentence": "Reorder the words to make the sentences you hear",
+            "reorderingRandom": "A mixture of word and sentence reordering",
+            "soundSpellingInfo": "Listen and choose the correct spelling",
+            "soundSpellingRandom": "A mixture of sounds and spelling questions",
+            "sortingSimilarSound": "Group together words with the same sound",
+            "sortingWordStress": "Group together words with the same stress pattern",
+            "sortingSyllable": "Group together words that have the same number of syllables",
+            "sortingRandom": "A mixture of grouping questions",
+            "oddOneOutWordStress": "Find the word that has a different stress pattern from the other",
+            "oddOneOutRhymingWord": "Find the word that ends in a different sounds from the others",
+            "oddOneOutSyllable": "Find the word that has a different number of syllables from the others",
+            "oddOneOutRandom": "Find the word that has a different stress pattern, ends in a different sounds, or has a different number of syllables from the other",
+            "snapReadingPhonetics": "Does the phonetic transcription match the word?",
+            "snapHomophones": "Do the two words sound the same or different?",
+            "snapRandom": "A mixture of homophones and phonetics matching questions",
+            "memoryMatchRhymingWord": "Find words that end in the same sound",
+            "memoryMatchHomophones": "Find words that sound the same but have different spellings",
+            "memoryMatchRandom": "A mixture of homophone and rhyming matches"
+        },
+        "exerciseInstruction": {
+            "dictation": {
+                "words": [
+                    "Listen and write the word you hear. You can listen to the word as many times as you like.",
+                    "Check for your answer before clicking on the “Next” button.",
+                    "You must spell the word correctly! The word is case-insensitive. No punctuations.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "missing-words": [
+                    "Listen to the full sentence and write the missing word in the textbox. You can listen to the sentence as many times as you like.",
+                    "Check for your answer before clicking on the “Next” button.",
+                    "You must spell the word correctly! The word is case-insensitive. No punctuations.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "sentences": [
+                    "Listen and write the sentence you hear. You can listen to the sentence as many times as you like.",
+                    "Check for your answer before clicking on the “Next” button.",
+                    "You must spell everything correctly! All words are case-insensitive. No punctuations.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Listen to the word or sentence, and write either the word, the missing word, or the full sentence that you hear. You can listen to the word or sentence as many times as you like.",
+                    "Check for your answer before clicking on the “Next” button.",
+                    "You must spell everything correctly! All words are case-insensitive. No punctuations.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+
+            "matchup": {
+                "similar-sounds": [
+                    "Here is a group of words that contain similar sounds.",
+                    "Listen to each word and match the written and spoken forms. You can listen to the words as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "reading-phonetics": [
+                    "Test your knowledge of the International Phonetic Alphabet!",
+                    "Listen to each word and match it to its phonetic transcription. You can listen to the words as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "comprehension": [
+                    "Listen to sentences by selecting the speaker icons and listen out for the words you see here.",
+                    "Match each word to the sentence it appears in. You can listen to the sentences as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Rearrange the words or phonetic transcriptions so that they are next to the correct speaker.",
+                    "You will either hear a word or a sentence. Which phonetic transcription matches the word you hear, or which word is included in the sentence you hear?",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "reordering": {
+                "words": [
+                    "Listen to the word and rearrange the letters into the correct order. You can listen to the word as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "sentences": [
+                    "Listen to the sentence and rearrange the words into the correct order. You can listen to the sentence as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Listen to the word or sentence and rearrange the letters or words into the correct order. You can listen to the word or sentence as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "sound_n_spelling": {
+                "sound": [
+                    "Listen to the word and choose the spelling that represents the sound {{ipaSound}}.",
+                    "You can listen to the word as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Listen to the word and choose the correct missing letter or letters. You can listen to the word as many times as you like.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "sorting": {
+                "similar-sounds": [
+                    "Move the words into the correct column according to the sound that each word contains.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "word-stress": [
+                    "Look at the word stress pattern shown at the top of each column. The large dot represents the main stress, and the number of dots shows the number of syllables in the word.",
+                    "Move the words into the correct column according to the number of syllables and where the main stress falls in the word.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "syllables": [
+                    "The numbers at the top of the columns represent the number of syllables in a word.",
+                    "Put the words into the correct column according to the number of syllables that each one has.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Move the words into the correct column according to the categories given at the top of the columns.",
+                    "The categories show sounds the words contain, word stress patterns, or numbers of syllables.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "odd_one_out": {
+                "word-stress": [
+                    "Choose the word that has a different stress pattern from the other words in the group.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "rhyming": [
+                    "Which word ends in a different sound from the other three words?",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "syllables": [
+                    "Which word has a different number of syllables from the other three?",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Choose the word that is different from the other words in the group.",
+                    "The odd one out may have different word stress, may end in a different sound, or may have a different number of syllables.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "snap": {
+                "reading-phonetics": [
+                    "Does the phonetic transcription match the word? Select “Yes” if the two match, or “No” if not.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "homophones": [
+                    "Look at the two words. Are they pronounced the same or different?",
+                    "Select “Yes” if you think the pronunciation is the same, and “No” if you think it's different.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ],
+                "random": [
+                    "Look at the two words. Do they match or not? Either the pronunciation should be the same, or the phonetic transcription should match the word.",
+                    "Select “Yes” if they match, or “No” if not.",
+                    "When you want to stop, select “Quit” to see your score in this session."
+                ]
+            },
+            "memory_match": {
+                "rhyming": [
+                    "Turn over two cards at a time to find pairs of words that end in the same sound, for example “you” and “shoe”.",
+                    "Can you complete the game before the timer runs out?"
+                ],
+                "homophones": [
+                    "Turn over two cards at a time to find pairs of words with the same pronunciation, for example “here” and “hear”.",
+                    "Can you complete the game before the timer runs out?"
+                ],
+                "random": [
+                    "Turn over two cards at a time to find pairs of words that either have the same pronunciation, or end in the same sound.",
+                    "Can you complete the game before the timer runs out?"
+                ]
+            }
+        },
+        "encouragementMsg": {
+            "level0": "Let’s get started!",
+            "level1": "Keep practicing! Every step is progress!",
+            "level2": "Keep going! You’re learning and improving!",
+            "level3": "Not bad! Keep trying, you’ll get there!",
+            "level4": "Nice work! Keep going, you’re doing fine!",
+            "level5": "Great job! You’re doing really well!",
+            "level6": "Perfect! You nailed it!"
+        },
+        "result": {
+            "cardHeading": "Result",
+            "correctAnswer": "Correct answer:",
+            "matchUpFinished": "You have revealed all of the cards! Congratulations!",
+            "timeUp": "Time’s up!",
+            "notAnswered": "You have not answered any questions yet. Try restarting the quiz, or choose another exercise type.",
+            "answerResult": "You have answered {{score}} out of {{totalAnswered}} correctly.",
+            "answerBottom": "Try this exercise again for further practice and different questions, or choose another exercise type.",
+            "tryAgainBottom": "Try this exercise again for further practice and different questions."
+        }
+    }
+}

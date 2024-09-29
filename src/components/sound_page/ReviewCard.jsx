@@ -1,13 +1,16 @@
 import he from "he";
 import { Card, Col, Row } from "react-bootstrap";
 import { EmojiFrown, EmojiNeutral, EmojiSmile } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 
 const ReviewCard = ({ sound, handleReviewClick, emojiStyle }) => {
+    const { t } = useTranslation();
+
     return (
         <Card className="shadow-sm">
-            <Card.Header className="fw-semibold">Review</Card.Header>
+            <Card.Header className="fw-semibold">{t("sound_page.reviewCard")}</Card.Header>
             <Card.Body>
-                <Card.Text>How do you pronounce the sound {he.decode(sound.phoneme)}?</Card.Text>
+                <Card.Text>{t("sound_page.reviewInstructions", { phoneme: he.decode(sound.phoneme) })}</Card.Text>
                 <Row className="d-flex justify-content-center">
                     <Col xs={"auto"} className="me-2" onClick={() => handleReviewClick("good")}>
                         <EmojiSmile size={52} role="button" className={`bi bi-emoji-smile ${emojiStyle("good")}`} />

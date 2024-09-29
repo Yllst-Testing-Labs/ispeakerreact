@@ -26,5 +26,11 @@ export default defineConfig(({ mode }) => {
         define: {
             __APP_VERSION__: JSON.stringify(packageJson.version), // Inject version
         },
+        server: {
+            fs: {
+                // Allow serving files from one level up to the project root
+                allow: [".."],
+            },
+        },
     };
 });

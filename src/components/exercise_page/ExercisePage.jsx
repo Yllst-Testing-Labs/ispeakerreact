@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { InfoCircle } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
 import { isElectron } from "../../utils/isElectron";
 import AccentDropdown from "../general/AccentDropdown";
@@ -10,6 +11,7 @@ import { getFileFromIndexedDB, saveFileToIndexedDB } from "../setting_page/offli
 import ExerciseDetailPage from "./ExerciseDetailPage";
 
 const ExercisePage = () => {
+    const { t } = useTranslation();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
@@ -26,12 +28,19 @@ const ExercisePage = () => {
         { name: "British English", value: "british" },
     ];
 
+    const getLocalizedTitle = (exercise) => {
+        if (exercise.titleKey) {
+            return t(exercise.titleKey); // Use localization for keys
+        }
+        return exercise.title;
+    };
+
     const handleSelectExercise = (exercise, heading) => {
         setSelectedExercise({
             id: exercise.id,
-            title: exercise.title,
+            title: getLocalizedTitle(exercise),
             accent: selectedAccentOptions.find((item) => item.value === selectedAccent).name,
-            file: exercise.file, // Only pass the file name
+            file: exercise.file,
             heading: heading,
         });
     };
@@ -40,10 +49,15 @@ const ExercisePage = () => {
         document.title = `Exercises | iSpeakerReact ${__APP_VERSION__}`;
     }, []);
 
-    const ExerciseCard = ({ heading, titles, info, file }) => (
+    const getInfoText = (exercise, defaultInfoKey) => {
+        // If exercise has a specific infoKey, use it. Otherwise, use the general infoKey.
+        return exercise.infoKey ? t(exercise.infoKey) : t(defaultInfoKey);
+    };
+
+    const ExerciseCard = ({ heading, titles, infoKey, file }) => (
         <Col>
             <Card className="mb-4 h-100 shadow-sm">
-                <Card.Header className="fw-semibold">{heading}</Card.Header>
+                <Card.Header className="fw-semibold">{t(heading)}</Card.Header>
                 <Card.Body>
                     {titles
                         .filter(({ american, british }) => {
@@ -57,11 +71,9 @@ const ExercisePage = () => {
                                     variant="link"
                                     className="p-0 m-0"
                                     onClick={() => handleSelectExercise({ ...exercise, file }, heading)}>
-                                    {exercise.title}
+                                    {t(exercise.titleKey) || exercise.title}
                                 </Button>
-                                <TooltipIcon
-                                    info={exercise["info-random"] ? exercise["info-random"] : exercise.info || info}
-                                />
+                                <TooltipIcon info={getInfoText(exercise, infoKey)} />
                             </Card.Text>
                         ))}
                 </Card.Body>
@@ -124,7 +136,7 @@ const ExercisePage = () => {
     return (
         <>
             <TopNavBar />
-            <h1 className="fw-semibold">Exercises</h1>
+            <h1 className="fw-semibold">{t("navigation.exercises")}</h1>
             {selectedExercise ? (
                 <ExerciseDetailPage
                     heading={selectedExercise.heading}
@@ -138,7 +150,7 @@ const ExercisePage = () => {
             ) : (
                 <>
                     <AccentDropdown onAccentChange={setSelectedAccent} />
-                    <p>Select an exercise to get started.</p>
+                    <p>{t("exercise_page.exerciseSubheading")}</p>
                     {loading ? (
                         <LoadingOverlay />
                     ) : (
@@ -148,7 +160,7 @@ const ExercisePage = () => {
                                     key={index}
                                     heading={section.heading}
                                     titles={section.titles}
-                                    info={section.info}
+                                    infoKey={section.infoKey}
                                     file={section.file}
                                 />
                             ))}

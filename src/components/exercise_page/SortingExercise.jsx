@@ -10,6 +10,7 @@ import _ from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, XCircle } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import useCountdownTimer from "../../utils/useCountdownTimer";
 import SortableWord from "./SortableWord";
@@ -25,6 +26,8 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (timer > 0) {
@@ -157,8 +160,14 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
         <>
             <Card.Header className="fw-semibold">
                 <div className="d-flex">
-                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
-                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                    <div className="me-auto">
+                        {t("exercise_page.questionNo")} #{currentQuizIndex + 1}
+                    </div>
+                    {timer > 0 && (
+                        <div className="ms-auto">
+                            {t("exercise_page.timer")} {formatTime()}
+                        </div>
+                    )}
                 </div>
             </Card.Header>
             <Card.Body>
@@ -192,7 +201,7 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
                                             <>
                                                 <div className="text-center w-100 p-4">
                                                     <div className="p-4 border rounded text-secondary">
-                                                        Drop here...
+                                                        {t("exercise_page.dropLayer")}
                                                     </div>
                                                 </div>
                                             </>
@@ -225,7 +234,7 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
                                             <>
                                                 <div className="text-center w-100 p-4">
                                                     <div className="p-4 border rounded text-secondary">
-                                                        Drop here...
+                                                        {t("exercise_page.dropLayer")}
                                                     </div>
                                                 </div>
                                             </>
@@ -246,15 +255,15 @@ const SortingExercise = ({ quiz, onAnswer, onQuit, useHorizontalStrategy = false
                 </DndContext>
                 <div className="d-flex justify-content-end mt-3">
                     <Button variant="success" onClick={handleSubmit} disabled={buttonsDisabled}>
-                        <Check2Circle /> Check
+                        <Check2Circle /> {t("exercise_page.buttons.checkBtn")}
                     </Button>
                     {currentQuizIndex < shuffledQuiz.length - 1 && (
                         <Button variant="secondary" className="ms-2" onClick={handleNextQuiz}>
-                            <ArrowRightCircle /> Next
+                            <ArrowRightCircle /> {t("exercise_page.buttons.nextBtn")}
                         </Button>
                     )}
                     <Button variant="danger" className="ms-2" onClick={handleQuit}>
-                        <XCircle /> Quit
+                        <XCircle /> {t("exercise_page.buttons.quitBtn")}
                     </Button>
                 </div>
             </Card.Body>

@@ -4,6 +4,7 @@ import _ from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { ArrowRightCircle, CheckCircleFill, XCircle, XCircleFill } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import useCountdownTimer from "../../utils/useCountdownTimer";
 
@@ -33,6 +34,8 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const [isHorizontal, setIsHorizontal] = useState(true);
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (timer > 0) {
@@ -129,7 +132,7 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                 variant="primary"
                 className={`w-100 fw-bold${isDropped ? " z-3" : " z-2"}`}
                 disabled={isDropped}>
-                Drag this
+                {t("exercise_page.dragThisItem")}
             </Button>
         );
     };
@@ -147,12 +150,12 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         const buttonText =
             result === "success" ? (
                 <>
-                    Correct
+                    {t("exercise_page.snapCorrect")}
                     <CheckCircleFill className="ms-2" />
                 </>
             ) : (
                 <>
-                    Incorrect
+                    {t("exercise_page.snapIncorrect")}
                     <XCircleFill className="ms-2" />
                 </>
             );
@@ -178,8 +181,14 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         <>
             <Card.Header className="fw-semibold">
                 <div className="d-flex">
-                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
-                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                    <div className="me-auto">
+                        {t("exercise_page.questionNo")} #{currentQuizIndex + 1}
+                    </div>
+                    {timer > 0 && (
+                        <div className="ms-auto">
+                            {t("exercise_page.timer")} {formatTime()}
+                        </div>
+                    )}
                 </div>
             </Card.Header>
             <Card.Body>
@@ -227,10 +236,10 @@ const Snap = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
 
                 <div className="d-flex justify-content-end mt-3">
                     <Button variant="secondary" onClick={handleNextQuiz}>
-                        <ArrowRightCircle /> Next
+                        <ArrowRightCircle /> {t("exercise_page.buttons.nextBtn")}
                     </Button>
                     <Button variant="danger" className="ms-2" onClick={handleQuit}>
-                        <XCircle /> Quit
+                        <XCircle /> {t("exercise_page.buttons.quitBtn")}
                     </Button>
                 </div>
             </Card.Body>

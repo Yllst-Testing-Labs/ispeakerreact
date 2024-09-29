@@ -1,20 +1,23 @@
 import he from "he";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Alert, Button, Card, Col, Modal, Ratio, Row } from "react-bootstrap";
 import { ArrowLeftCircle, RecordCircleFill } from "react-bootstrap-icons";
+import { Trans, useTranslation } from "react-i18next";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { checkRecordingExists } from "../../utils/databaseOperations";
 import { isElectron } from "../../utils/isElectron";
+import LoadingOverlay from "../general/LoadingOverlay";
 import ToastNotification from "../general/ToastNotification";
 import ReviewCard from "./ReviewCard";
 import SoundPracticeCard from "./SoundPracticeCard";
 import { usePlaybackFunction } from "./usePlaybackFunction";
 import { useRecordingFunction } from "./useRecordingFunction";
 import { useSoundVideoMapping } from "./useSoundVideoMapping";
-import LoadingOverlay from "../general/LoadingOverlay";
 
 const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
+    const { t } = useTranslation();
+
     const accentKey = accent === "american" ? "a" : "b";
     const accentData = sound[accentKey][0];
 
@@ -88,9 +91,11 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
     // Video modals
 
     const [show, setShow] = useState(false);
-    const [selectedVideoUrl, setSelectedVideoUrl] = React.useState("");
+    const [selectedVideoUrl, setSelectedVideoUrl] = useState("");
+    const [selectedVideoModalIndex, setSelectedVideoModalIndex] = useState("");
 
     const handleShow = (videoIndex) => {
+        setSelectedVideoModalIndex(videoIndex);
         setSelectedVideoUrl(videoUrls[videoIndex]);
         setShow(true);
         setIframeLoadingStates((prevStates) => ({
@@ -216,11 +221,16 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
         <>
             <Row className="mt-4">
                 <Col lg={3} className="mb-4">
-                    <h3>Sound {he.decode(sound.phoneme)}</h3>
-                    <p>Accent: {accent.charAt(0).toUpperCase() + accent.slice(1)} English</p>
+                    <h3>
+                        {t("sound_page.soundTop")} {he.decode(sound.phoneme)}
+                    </h3>
+                    <p>
+                        {t("accent.accentSettings")}:{" "}
+                        {accent == "american" ? t("accent.accentAmerican") : t("accent.accentBritish")}
+                    </p>
                     {accentData && (
                         <>
-                            <p className="fw-semibold">{accentData.text}</p>
+                            <p className="fw-semibold">{t("sound_page.exampleWords")}</p>
                             {["initial", "medial", "final"].map((position) => (
                                 <p
                                     key={position}
@@ -229,12 +239,12 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                         </>
                     )}
                     <Button onClick={onBack}>
-                        <ArrowLeftCircle /> Back to sound list
+                        <ArrowLeftCircle /> {t("sound_page.backBtn")}
                     </Button>
                 </Col>
                 <Col lg={9}>
                     <Card className="mb-4 shadow-sm">
-                        <Card.Header className="fw-semibold">Watch</Card.Header>
+                        <Card.Header className="fw-semibold">{t("sound_page.watchCard")}</Card.Header>
                         <Card.Body>
                             <Ratio aspectRatio="16x9">
                                 <div>
@@ -270,7 +280,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                             </Ratio>
                             {isElectron() && !videoUrl?.value.includes("http://localhost") ? (
                                 <Alert variant="secondary" className="mt-4">
-                                    Want to watch the video offline? Head to the “Settings” page to download it.
+                                    {t("alert.alertOnlineVideo")}
                                 </Alert>
                             ) : (
                                 ""
@@ -278,11 +288,13 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                         </Card.Body>
                     </Card>
                     <Card className="mb-4 shadow-sm">
-                        <Card.Header className="fw-semibold">Practice</Card.Header>
+                        <Card.Header className="fw-semibold">{t("sound_page.practiceCard")}</Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                Click/Tap on the image to watch the video clips. Click/Tap on the{" "}
-                                <RecordCircleFill aria-label="record icon" /> button to record.
+                                <Trans
+                                    i18nKey="sound_page.recordInstructions"
+                                    components={[<RecordCircleFill key="0" aria-label="record icon" />]}
+                                />
                             </Card.Text>
                             <SoundPracticeCard
                                 sound={sound}
@@ -304,7 +316,9 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
             </Row>
             <Modal show={show} onHide={handleClose} size="lg" centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Watch video pronunciation clip</Modal.Title>
+                    <Modal.Title>
+                        {t("sound_page.clipModalTitle")} #{selectedVideoModalIndex}
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Ratio aspectRatio="16x9">
@@ -338,7 +352,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                     </Ratio>
                     {isElectron() && !selectedVideoUrl.startsWith("http://localhost") ? (
                         <Alert variant="secondary" className="mt-4">
-                            Want to watch the video offline? Head to the “Settings” page to download it.
+                            {t("alert.alertOnlineVideo")}
                         </Alert>
                     ) : (
                         ""
@@ -346,7 +360,7 @@ const PracticeSound = ({ sound, accent, onBack, index, soundsData }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t("sound_page.closeBtn")}
                     </Button>
                 </Modal.Footer>
             </Modal>

@@ -1,5 +1,7 @@
 import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { saveRecording } from "../../utils/databaseOperations";
+import { isElectron } from "../../utils/isElectron";
 
 export function useRecordingFunction(
     activeRecordingCard,
@@ -17,6 +19,7 @@ export function useRecordingFunction(
     recordingAvailability,
     playingRecordings
 ) {
+    const { t } = useTranslation();
     const MAX_RECORDING_DURATION_MS = 20 * 1000; // 20 seconds in milliseconds
 
     const getRecordingKey = useCallback(
@@ -62,9 +65,7 @@ export function useRecordingFunction(
                             const recordingDuration = Date.now() - recordingStartTime;
                             if (recordingDuration > MAX_RECORDING_DURATION_MS) {
                                 mediaRecorder.stop();
-                                setToastMessage(
-                                    "Recording stopped because it exceeded the duration limit of 10 seconds."
-                                );
+                                setToastMessage(t("toast.recordingExceeded"));
                                 setShowToast(true);
                                 setIsRecording(false);
                                 setActiveRecordingCard(null);
@@ -73,7 +74,7 @@ export function useRecordingFunction(
                             if (mediaRecorder.state === "inactive") {
                                 const audioBlob = new Blob(audioChunks, { type: mimeType });
                                 saveRecording(audioBlob, recordingDataIndex, mimeType);
-                                setToastMessage("Recording saved.");
+                                setToastMessage(t("toast.recordingSuccess"));
                                 setShowToast(true);
                                 setRecordingAvailability((prev) => ({ ...prev, [recordingDataIndex]: true }));
                                 audioChunks = [];
@@ -84,9 +85,7 @@ export function useRecordingFunction(
                         setTimeout(() => {
                             if (mediaRecorder.state !== "inactive") {
                                 mediaRecorder.stop();
-                                setToastMessage(
-                                    "Recording stopped because it exceeded the duration limit of 10 seconds."
-                                );
+                                setToastMessage(t("toast.recordingExceeded"));
                                 setShowToast(true);
                                 setIsRecording(false);
                                 setActiveRecordingCard(null);
@@ -95,8 +94,8 @@ export function useRecordingFunction(
                     })
                     .catch((err) => {
                         console.error("Error accessing the microphone.", err);
-                        window.electron.log("error", `Error accessing the microphone: ${err}`);
-                        setToastMessage("Recording failed. Reason(s): " + err.message);
+                        isElectron() && window.electron.log("error", `Error accessing the microphone: ${err}`);
+                        setToastMessage(`${t("toast.recordingFailed")} ${err.message}`);
                         setShowToast(true);
                         setIsRecording(false);
                         setActiveRecordingCard(null);
@@ -126,6 +125,7 @@ export function useRecordingFunction(
             setToastMessage,
             setShowToast,
             setRecordingAvailability,
+            t,
         ]
     );
 

@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import { Dropdown } from "react-bootstrap";
 import AccentLocalStorage from "../../utils/AccentLocalStorage";
+import { useTranslation } from "react-i18next";
 
 const AccentDropdown = ({ onAccentChange }) => {
     const [selectedAccent, setSelectedAccent] = AccentLocalStorage();
+    const { t } = useTranslation();
 
     const selectedAccentOptions = [
-        { name: "American English", value: "american" },
-        { name: "British English", value: "british" },
+        { name: `${t("accent.accentAmerican")}`, value: "american" },
+        { name: `${t("accent.accentBritish")}`, value: "british" },
     ];
 
     useEffect(() => {
@@ -24,7 +26,7 @@ const AccentDropdown = ({ onAccentChange }) => {
     return (
         <Dropdown className="my-4">
             <Dropdown.Toggle variant="success" id="dropdown-basic">
-                <span className="fw-semibold">Accent:</span>{" "}
+                <span className="fw-semibold">{t("accent.accentSettings")}:</span>{" "}
                 {selectedAccentOptions.find((item) => item.value === selectedAccent).name}
             </Dropdown.Toggle>
             <Dropdown.Menu>

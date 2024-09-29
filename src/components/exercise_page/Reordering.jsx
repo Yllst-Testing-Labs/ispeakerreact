@@ -13,6 +13,7 @@ import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Button, Card, Col, Row, Spinner, Stack } from "react-bootstrap";
 import { ArrowRightCircle, Check2Circle, VolumeUp, VolumeUpFill, XCircle } from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
 import { ShuffleArray } from "../../utils/ShuffleArray";
 import useCountdownTimer from "../../utils/useCountdownTimer";
 import SortableWord from "./SortableWord";
@@ -31,6 +32,8 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
     const [shuffledQuizArray, setShuffledQuizArray] = useState([]);
 
     const { formatTime, clearTimer, startTimer } = useCountdownTimer(timer, () => setTimeIsUp(true));
+
+    const { t } = useTranslation();
 
     const filterAndShuffleQuiz = (quiz) => {
         const uniqueQuiz = _.uniqWith(quiz, _.isEqual);
@@ -251,8 +254,8 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
         <>
             <Card.Header className="fw-semibold">
                 <div className="d-flex">
-                    <div className="me-auto">Question #{currentQuizIndex + 1}</div>
-                    {timer > 0 && <div className="ms-auto">Time: {formatTime()}</div>}
+                    <div className="me-auto">{t("exercise_page.questionNo")} #{currentQuizIndex + 1}</div>
+                    {timer > 0 && <div className="ms-auto">{t("exercise_page.timer")} {formatTime()}</div>}
                 </div>
             </Card.Header>
             <Card.Body>
@@ -305,21 +308,21 @@ const Reordering = ({ quiz, onAnswer, onQuit, timer, setTimeIsUp }) => {
                 </Row>
                 {showAlert && (
                     <Alert variant="info" className="mt-2">
-                        Correct answer: <span className="fw-bold fst-italic">{correctAnswer}</span>
+                        {t("exercise_page.result.correctAnswer")} <span className="fw-bold fst-italic">{correctAnswer}</span>
                     </Alert>
                 )}
                 <div className="d-flex justify-content-end mt-3">
                     <Stack direction="horizontal" gap={2}>
                         <Button variant="success" onClick={handleSubmit} disabled={buttonsDisabled}>
-                            <Check2Circle /> Check
+                            <Check2Circle /> {t("exercise_page.buttons.checkBtn")}
                         </Button>
                         {currentQuizIndex < quiz.length - 1 && (
                             <Button variant="secondary" onClick={handleNextQuiz}>
-                                <ArrowRightCircle /> Next
+                                <ArrowRightCircle /> {t("exercise_page.buttons.nextBtn")}
                             </Button>
                         )}
                         <Button variant="danger" onClick={handleQuit}>
-                            <XCircle /> Quit
+                            <XCircle /> {t("exercise_page.buttons.quitBtn")}
                         </Button>
                     </Stack>
                 </div>
